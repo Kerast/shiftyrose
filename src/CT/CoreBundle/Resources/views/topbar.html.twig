@@ -1,0 +1,93 @@
+<div class="app-header info box-shadow-z4 navbar-md" style="background-color: #383838;">
+    <div class="navbar">
+        <!-- Open side - Naviation on mobile -->
+        <a data-toggle="modal" data-target="#aside" class="navbar-item pull-left hidden-lg-up">
+            <i class="material-icons">&#xe5d2;</i>
+        </a>
+        <!-- / -->
+
+        <!-- Page title - Bind to $state's title -->
+        <div class="navbar-item pull-left h5" ng-bind="$state.current.data.title" id="pageTitle"></div>
+
+        <!-- navbar right -->
+        <ul class="nav navbar-nav pull-right">
+
+
+            <li class="nav-item dropdown pos-stc-xs">
+                <a class="nav-link" href="{{ path('ct_core_buy_tokens') }}" >
+
+                        <button class="btn btn-outline rounded b-success text-success" style="padding-top: 5px;padding-bottom: 5px;padding-left: 15px;padding-right: 15px;">
+                            {{ app.user.virtualMoneyBalance }} PLEX
+                        </button>
+
+                </a>
+            </li>
+
+            <li class="nav-item dropdown pos-stc-xs">
+                <a class="nav-link" href="{{ path('ct_core_cart') }}" >
+                    <i class="fa fa-shopping-cart"></i>
+                    {% if  applicationsInCartCount > 0 %}
+                        <span id="applications-in-cart-count"  class="label label-sm up warn">{{ applicationsInCartCount }}</span>
+                    {% else %}
+                        <span id="applications-in-cart-count" style="visibility: hidden" class="label label-sm up warn">{{ applicationsInCartCount }}</span>
+                    {% endif %}
+                </a>
+            </li>
+            <li class="nav-item dropdown pos-stc-xs">
+
+
+                <a class="nav-link" href ui-toggle-class="active" target="#sw-theme" >
+                    <i class="fa fa-gear"></i>
+
+                </a>
+
+
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link clear" href data-toggle="dropdown">
+                <span class="avatar w-32">
+                  <img src="{{ asset('bundles/ctcore/assets/images/a0.jpg') }}" alt="...">
+                  <i class="on b-white bottom"></i>
+                </span>
+                </a>
+                    <div class="dropdown-menu pull-right dropdown-menu-scale">
+                        <a class="dropdown-item" ui-sref="app.inbox.list">
+                            <span>Inbox</span>
+                            <span class="label warn m-l-xs">3</span>
+                        </a>
+                        <a class="dropdown-item" ui-sref="app.page.profile">
+                            <span>Profile</span>
+                        </a>
+                        <a class="dropdown-item" ui-sref="app.page.setting">
+                            <span>Settings</span>
+                            <span class="label primary m-l-xs">3/9</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" ui-sref="app.docs">
+                            Need help?
+                        </a>
+                        <a class="dropdown-item" ui-sref="access.signin">Sign out</a>
+                    </div>
+
+            </li>
+            <li class="nav-item hidden-md-up">
+                <a class="nav-link" data-toggle="collapse" data-target="#collapse">
+                    <i class="material-icons">&#xe5d4;</i>
+                </a>
+            </li>
+        </ul>
+        <!-- / navbar right -->
+
+        <!-- navbar collapse -->
+        <div class="collapse navbar-toggleable-sm" id="collapse">
+            <!-- link and dropdown -->
+            <form action="{{ path('ct_core_webservices_freebuy') }}">
+                <button style="top: 17px;width: 150px;" class="md-btn md-flat m-b-sm w-xs text-danger">GUERRIDOUX GRATIS</button>
+            </form>
+
+            <!-- / -->
+        </div>
+        <!-- / navbar collapse -->
+    </div>
+</div>

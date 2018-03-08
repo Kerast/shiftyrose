@@ -1,0 +1,423 @@
+{% extends "CTCoreBundle::layout.html.twig" %}
+
+
+
+{% block body_core %}
+    <div ui-view class="app-body" id="view">
+
+        <!-- ############ PAGE START-->
+        <div class="padding">
+
+            <div class="row">
+
+                <div class="col-lg-12">
+                    <div class="box">
+                        <div class="box-header">
+                            <h2>Recherche</h2>
+                        </div>
+                        <div class="box-divider m-a-0"></div>
+                        <div class="box-body p-v-md">
+                            <div class="row row-sm " >
+                                <form id ="searchForm" action="{{ path("ct_core_shifts") }}" method="post">
+                                    <input type="hidden" name="week" value="{{ postParameterWeek }}"/>
+
+                                    <div class="col-xs-3">
+                                        <select id="locationsSelect" name="locationsSelect" class="form-control input-c" style="height: 2.4rem;" form="searchForm">
+                                            {% for loc in locations %}
+                                                <option>{{ loc.name }}</option>
+                                            {% endfor %}
+                                        </select>
+
+                                    </div>
+                                    <div class="col-xs-4">
+
+                                        <select  id="departmentsSelect" name="departmentsSelect[]" class="form-control select2-multiple" multiple ui-jp="select2" ui-options="{theme: 'bootstrap'}">
+
+                                        </select>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="form-group">
+                                            <div class="input-group date" ui-jp="datetimepicker" ui-options="{
+                                                viewMode: 'years',
+                                                format: 'MM/YYYY',
+                                                icons: {
+                                                  time: 'fa fa-clock-o',
+                                                  date: 'fa fa-calendar',
+                                                  up: 'fa fa-chevron-up',
+                                                  down: 'fa fa-chevron-down',
+                                                  previous: 'fa fa-chevron-left',
+                                                  next: 'fa fa-chevron-right',
+                                                  today: 'fa fa-screenshot',
+                                                  clear: 'fa fa-trash',
+                                                  close: 'fa fa-remove'
+                                                }
+                                              }">
+                                                <input name="date" id="datepicker_filter" type="text" class="form-control has-value" value="{{ "now"|date("m/Y") }}">
+                                                <span class="input-group-addon">
+                                          <span class="fa fa-calendar"></span>
+                                      </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-1">
+                                        <button type="submit" class="btn white">Rechercher</button>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                    {% if isSearching == true %}
+                        <div class="box">
+                        <div class="box-header">
+                            <form style="display: inline;" id ="searchFormPrevious" action="{{ path("ct_core_shifts") }}" method="post">
+                                <button class="btn btn-fw white" style="height: 80px;width: 48px;min-width: 5px;"><i class="fa fa-arrow-left"></i></button>
+
+                                <input type="hidden" name="locationsSelect" value="{{ postParameterLocation }}">
+                                {% for dep in postParameterDepartments  %}
+                                    <input type="hidden" name="departmentsSelect[]" value="{{ dep }}">
+                                {% endfor %}
+                                <input type="hidden" name="date" value="{{ previousDate }}">
+                                <input type="hidden" name="week" value="{{ postParameterWeek }}">
+                            </form>
+
+                            <button class="btn btn-outline b-primary text-primary" style="height: 80px;width: 82px;min-width: 5px;">
+                                <div class="page">
+                                    <div id="displayed_month" >{{ actualMonth }}</div>
+                                    <div id="displayed_year" >{{ actualYear }}</div>
+                                </div>
+                            </button>
+
+                            <form style="display: inline;" id ="searchFormNext" action="{{ path("ct_core_shifts") }}" method="post">
+                                <button class="btn btn-fw white" style="height: 80px;width: 48px;min-width: 5px;"><i class="fa fa-arrow-right"></i></button>
+
+
+                                <input type="hidden" name="locationsSelect" value="{{ postParameterLocation }}">
+                                {% for dep in postParameterDepartments  %}
+                                    <input type="hidden" name="departmentsSelect[]" value="{{ dep }}">
+                                {% endfor %}
+                                <input type="hidden" name="date" value="{{ nextDate }}">
+                                <input type="hidden" name="week" value="{{ postParameterWeek }}">
+                            </form>
+
+                            <div style="display:inline-block;position: absolute">
+                                {% set count = 0 %}
+                                {% for we in weeks  %}
+                                    <form style="display:inline" id ="searchWeek{{ count }}" action="{{ path("ct_core_shifts") }}" method="post">
+                                        <input type="hidden" name="locationsSelect" value="{{ postParameterLocation }}">
+                                        {% for dep in postParameterDepartments  %}
+                                            <input type="hidden" name="departmentsSelect[]" value="{{ dep }}">
+                                        {% endfor %}
+                                        <input type="hidden" name="date" value="{{ postParameterDate }}">
+                                        <input type="hidden" name="week" value="{{ count }}">
+                                        <div   class="box" style="cursor: pointer;display:inline-block;margin-left: 20px;width: 100px;text-align: center;" onClick="document.forms['searchWeek{{ count }}'].submit();">
+                                            <div class="box-header primary" style="padding: 5px;    border-top-left-radius: 5px;border-top-right-radius: 5px;padding-left: 10px;padding-right: 10px;">
+
+                                                {{ we|first|date("d") }} - {{ we|last|date("d") }}
+                                            </div>
+                                            <div class="box-body" style="text-align: center;padding: 5px;{% if count == postParameterWeek  %} border-bottom: 4px solid #2196F4; {% endif %}">
+                                                <p class="m-a-0" ><span style="display:inline; font-size: 25px" >92</span>  <small style="display:inline;font-size: 12px">%</small> </p>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    {% set count = count + 1 %}
+                                {% endfor %}
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="box-divider m-a-0"></div>
+
+                        {% for shiftsDep in allOrganizedShifts %}
+                            <div class="box-body p-v-md">
+                            <div class="box-header">
+                                <h2>{{ shiftsDep[0].name }}</h2>
+                            </div>
+                            <div class="box-divider m-a-0"></div>
+                            <table style="margin-bottom: 0px;" class="table table-bordered">
+                                <thead>
+                                <tr>
+                                    <th width="14.3%" >Lundi {{ weeks[postParameterWeek][0]|date("d") }}</th>
+                                    <th width="14.3%">Mardi {{ weeks[postParameterWeek][1]|date("d") }}</th>
+                                    <th width="14.3%">Mercredi {{ weeks[postParameterWeek][2]|date("d") }}</th>
+                                    <th width="14.3%">Jeudi {{ weeks[postParameterWeek][3]|date("d") }}</th>
+                                    <th width="14.3%">Vendredi {{ weeks[postParameterWeek][4]|date("d") }}</th>
+                                    <th width="14.3%">Samedi {{ weeks[postParameterWeek][5]|date("d") }}</th>
+                                    <th width="14.3%">Dimanche {{ weeks[postParameterWeek][6]|date("d") }}</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+
+                                {% for line in shiftsDep[1] %}
+                                    <tr>
+                                        {% for shift in line %}
+                                            {% if shift is not null %}
+                                                <td style="padding: 6px !important;">
+                                                <button id="shift{{ shift["id"] }}" onclick='modalPopupUpdate( {{ shift|json_encode|raw }});' class="md-btn md-raised m-b-sm w-xs {{ shift["backgroundColor"] }} {{ shift["isApplied"] }}" {% if shift["isFull"] == 0 %}{% if shift["isApplied"] != "buyed"  %} data-toggle="modal" data-target="#m-a-f" {% endif %} {% endif %}  style="margin-bottom: 0rem !important;width: 100%;   height: 60px;padding: 4px;">
+                                                    <div style="height: 50px;">
+                                                        <span style="position: absolute;left: 11px;"> {{ shift["startsAt"]|date("H:i") }}- {{ shift["endsAt"]|date("H:i") }} </span>
+
+                                                        {% if shift["isApplied"] != "buyed"  %}
+                                                            <span style="    position: absolute;right: 11px;bottom: 7px;"> {{ shift["price"] }} €</span>
+                                                            <span style="position: absolute;right: 7px;top: 9px;" class="label rounded danger">-{{ shift["promotion"] }} %</span>
+                                                            <div style="position: absolute;bottom: 6px;left: 12px;"><i class="material-icons">people</i>    {{ shift["validApplicationsCount"] }}/{{ shift["desiredCoverage"] }}</div>
+
+                                                        {% else %}
+                                                            <div style="position: absolute;bottom: 6px;left: 12px;">    Reserved</div>
+                                                            <span style="    position: absolute;right: 11px;bottom: 7px;"> <i class="fa fa-check-circle"></i> </span>
+                                                        {% endif %}
+
+                                                    </div>
+                                                </button>
+                                            </td>
+                                            {% else %}
+                                                <td style="padding: 6px !important;">
+
+                                                </td>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                    </tr>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                        {% endfor %}
+
+
+                    </div>
+                    {% endif %}
+
+                </div>
+
+
+
+            </div>
+
+
+
+            <script>
+
+
+                /*var d = new Date();
+                var n = d.getMonth();
+
+
+                $("#datepicker_filter").val(d.getMonth() + "/" + d.getFullYear());*/
+
+                var locations = {{ locations|json_encode|raw }};
+
+                var departments = {{ departments|json_encode|raw }};
+
+
+                $('#locationsSelect').change(function(){
+
+                    var data= $(this).val();
+                    $("#departmentsSelect").empty()
+                    $("#departmentsSelect").val([]);
+
+                    for (i = 0; i < locations.length; i++) {
+
+                        if(locations[i]["name"]==data)
+                        {
+
+                            for (j = 0; j < departments.length; j++) {
+
+                                if(departments[j]["location"]["id"] == locations[i]["id"])
+                                {
+                                    $('#departmentsSelect').append($('<option>', {
+                                        value: departments[j]["id"],
+                                        text: departments[j]["name"]
+                                    }));
+                                }
+                            }
+                            break;
+                        }
+                    }
+                });
+                $('#locationsSelect').val(locations[0]["name"]).change();
+
+
+
+
+                function modalPopupUpdate(shift)
+                {
+                    actualSelectedShift = shift["id"];
+                    var startDate = new Date(shift["startsAt"]["date"]);
+                    var endDate = new Date(shift["endsAt"]["date"]);
+
+                    $("#modal_department").text(shift["department"]["name"]);
+                    $("#modal_shift").text(moment(startDate).format('hh:mm')+ " - " +  moment(endDate).format('hh:mm')  );
+                    $("#modal_price").text(shift["price"] + " €");
+
+
+                    console.log($("#modal_title").text());
+
+                    selectedShiftClassName = document.getElementById("shift" + actualSelectedShift).className;
+
+                    if(selectedShiftClassName.indexOf("in_cart") !== -1)
+                    {
+                        document.getElementById("modal_button_submit").onclick = removeShiftToCart;
+                        $("#modal_title").text("Retirer du panier");
+                    }
+                    else if(selectedShiftClassName.indexOf("buyed") !== -1)
+                    {
+                        console.log("rien");
+
+                    }
+                    else if(selectedShiftClassName.indexOf("none") !== -1)
+                    {
+                        document.getElementById("modal_button_submit").onclick = addShiftToCart;
+                        $("#modal_title").text("Ajouter au panier");
+
+                    }
+
+                }
+
+
+                function addShiftToCart(){
+
+                    console.log(document.getElementById("shift" + actualSelectedShift).className );
+
+
+                        document.getElementById("modal_loader").style.visibility = "visible";
+
+                        $.ajax({
+                            type: 'POST',
+
+                            url: "http://151.80.47.12/shiftyrose/web/app_dev.php/core/webservices/addtocart",
+                            data: {
+                                'shift_id': actualSelectedShift
+                            },
+
+                            success: function(msg) {
+
+                                var response = JSON.parse(msg);
+                                console.log(response);
+                                if(response["status"] == 1)
+                                {
+                                    console.log("shift" + actualSelectedShift);
+
+                                    document.getElementById("shift" + actualSelectedShift).classList.remove('none');
+                                    document.getElementById("shift" + actualSelectedShift).classList.add('in_cart');
+
+                                    var actualCount = $('#applications-in-cart-count').text();
+                                    console.log(actualCount);
+                                    $('#applications-in-cart-count').text((parseInt(actualCount) + 1));
+                                    document.getElementById("applications-in-cart-count").style.visibility = "visible";
+                                }
+                                $('.modal').modal('hide');
+                                ShowSnackbar(response["message"]);
+
+                            }});
+
+                }
+
+
+                function removeShiftToCart(){
+
+                    console.log("salut");
+                    $.ajax({
+                        type: 'POST',
+
+                        url: "http://151.80.47.12/shiftyrose/web/app_dev.php/core/webservices/removefromcart",
+                        data: {
+                            'shift_id': actualSelectedShift
+                        },
+
+                        success: function(msg) {
+
+                            var response = JSON.parse(msg);
+                            console.log(response);
+                            if(response["status"] == 1)
+                            {
+
+                                console.log("shift" + actualSelectedShift);
+
+                                document.getElementById("shift" + actualSelectedShift).classList.remove('in_cart');
+                                document.getElementById("shift" + actualSelectedShift).classList.add('none');
+
+                                var actualCount = $('#applications-in-cart-count').text();
+                                var nextCount = (parseInt(actualCount) - 1);
+
+                                $('#applications-in-cart-count').text(nextCount);
+
+                                if(nextCount == 0)
+                                {
+                                    document.getElementById("applications-in-cart-count").style.visibility = "hidden";
+                                }
+                            }
+                            $('.modal').modal('hide');
+                            ShowSnackbar(response["message"]);
+
+                        }});
+
+
+                }
+
+
+                function ShowSnackbar(msg) {
+                    var x = document.getElementById("snackbar")
+                    x.className = "show";
+                    $("#snackbar").text(msg);
+                    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+                }
+
+
+            </script>
+
+
+
+        </div>
+
+
+        <div id="m-a-f" class="modal fade" data-backdrop="true" style="display: none;" aria-hidden="true" >
+            <div class="modal-dialog" style="width:300px;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="modal_title" class="modal-title">Ajouter au Panier</h5>
+                        <div id="modal_loader" style="visibility:hidden;position:absolute;height:26px;top: 17px;right: 39px;">
+                            <div class="dot_loader">
+                            </div>
+                        </div>
+                    </div>
+
+                    <span id="modal_price" style="position: absolute;right: 22px;top: 85px;">12 $</span>
+                    <div class="modal-body p-lg">
+                        <div class="list-body">
+                            <div  class="_500" id="modal_department">Beaubourg République</div>
+                            <small class="block text-muted" id="modal_shift">08:00 - 09:00</small>
+                        </div>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn dark-white p-x-md" data-dismiss="modal">Non</button>
+                        <button id="modal_button_submit" onclick="addShiftToCart();" type="button" class="btn danger p-x-md" data-dismiss="modal">Oui</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div>
+        </div>
+
+
+        <div id="snackbar">Some text some message..</div>
+
+        <!-- ############ PAGE END-->
+
+    </div>
+
+
+
+
+{% endblock %}
+
+
+{% block body_scripts %}
+
+{% endblock %}
+

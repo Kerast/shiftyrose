@@ -1,0 +1,80 @@
+{% extends "CTCoreBundle::layout.html.twig" %}
+
+
+{% block body_core %}
+    <div ui-view="" class="app-body" id="view">
+
+        <!-- ############ PAGE START-->
+        <div class="padding">
+            <div class="p-y-lg clearfix">
+                <div class="text-center">
+                    <h2 class="_700 m-b">ACHETER DES PLEX</h2>
+                    <h5 class="m-b-md">Le PLEX est une monnaie d'échange qui vous permettra de reserver des créneaux plus facilement.</h5>
+                </div>
+            </div>
+            <div class="p-x-lg">
+                <div class="row">
+                    <div class="col-lg-10 offset-lg-1">
+                        <div class="row ">
+
+                            {% for pack in packagePlex %}
+                                <div class="col-sm-3 col-sm-push-3">
+                                    <div class="box m-t-n" style="margin: 10px;">
+                                        <div style="    text-align: center;padding:16px">
+                                            <div >
+                                                <div >
+
+                                                    <div >
+                                                        <img style=" height: 120px;" class="plex-icon-gold" src="{{ pack.image }}">
+                                                    </div>
+                                                    <div class="plex-info">
+                                                        <div class="quantity-container">
+                                                            <h1 class="quantity" style="font-size: 19px;font-weight: 400;margin-top:22px">{{ pack.plex }} PLEX </h1>
+                                                        </div>
+                                                        <div class="discount-container " style="font-size: 22px;">
+
+                                                            {% if pack.promotion > 0  %}
+                                                                <div class="extra-plex">{{ pack.plex - pack.promotion }}<span style="color: #f7ce2f"> + {{ pack.promotion }} gratuits </span></div>
+                                                            {% else %}
+                                                                <div class="extra-plex" style="visibility: hidden">{{ pack.plex - pack.promotion }}<span style="color: #f7ce2f"> + {{ pack.promotion }} gratuits </span></div>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                    <div class="price-container" style="margin-top: 22px;">
+
+                                                        <h2 class="price ">
+                                                        <span class="strikethrough hidden">
+                                                            <span class="normal">€{{ pack.price }}</span>
+                                                        </span>
+                                                        </h2>
+                                                    </div>
+                                                </div>
+                                                <form action="{{ path('ct_core_checkout', {'id': pack.id}) }}">
+                                                    <button style="width: 100%;margin-bottom: 0px !important;" class="md-btn md-raised m-b-sm w-xs orange">Acheter</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        <!-- ############ PAGE END-->
+
+    </div>
+{% endblock %}
+
+
+{% block body_scripts %}
+
+{% endblock %}
+

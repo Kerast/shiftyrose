@@ -1,0 +1,90 @@
+<!-- aside -->
+
+
+<div id="aside" class="app-aside box-shadow-z3 modal fade lg nav-expand">
+    <div class="left navside white dk" layout="column">
+        <div class="navbar navbar-md info no-radius box-shadow-z4" style="background-color: #383838;">
+            <!-- brand -->
+            <a class="navbar-brand">
+                <img src="{{ asset('bundles/ctcore/assets/images/logo2.png') }}" style="height: 46px;max-height: 55px;position: absolute;top: 10px;" alt="." >
+                <span style="margin-left: 55px;" class="hidden-folded inline">SHIFTY</span>
+            </a>
+            <!-- / brand -->
+        </div>
+        <div flex class="hide-scroll">
+            <nav class="scroll">
+
+
+                <ul class="nav" ui-nav style="margin-top: 15px;">
+
+                    <li>
+                        <a href="{{ path('ct_core_homepage') }}" >
+                          <span class="nav-icon">
+                            <i class="material-icons">&#xe3fc;
+                              <span ui-include="'{{ asset('bundles/ctcore/assets/images/i_0.svg') }}'"></span>
+                            </i>
+                          </span>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+
+
+
+                    <li>
+                        <a  href="{{ path('ct_core_shifts') }}">
+                            <span class="nav-label">
+                            <b class="label rounded label-sm primary">5</b>
+                          </span>
+                                    <span class="nav-icon">
+                            <i class="material-icons">&#xe5c3;
+                              <span ui-include="'{{ asset('bundles/ctcore/assets/images/i_1.svg') }}'"></span>
+                            </i>
+                          </span>
+                            <span class="nav-text">Shifts</span>
+                        </a>
+
+                    </li>
+
+
+                    <li>
+                        <a href="{{ path('ct_core_worker') }}">
+
+
+                            <span class="nav-icon">
+                    <i class="material-icons">&#xe3e8;
+                      <span ui-include="'{{ asset('bundles/ctcore/assets/images/i_5.svg') }}'"></span>
+                    </i>
+                  </span>
+                            <span class="nav-text">Worker</span>
+                        </a>
+
+                    </li>
+
+
+                    <li>
+                        <a href="{{ path('ct_core_faq') }}">
+
+                            <span class="nav-icon">
+                    <i class="material-icons">&#xe39e;
+                      <span ui-include="'{{ asset('bundles/ctcore/assets/images/i_6.svg') }}'"></span>
+                    </i>
+                  </span>
+                            <span class="nav-text">Help</span>
+                        </a>
+
+                    </li>
+
+
+
+                </ul>
+            </nav>
+        </div>
+        <div flex-no-shrink>
+            <div ui-include="'{{ asset('bundles/ctcore/views/blocks/aside.bottom.1.html') }}'"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- / aside -->

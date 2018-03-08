@@ -1,0 +1,340 @@
+{% extends "CTCoreBundle::layout.html.twig" %}
+
+
+{% block body_core %}
+    <div ui-view="" class="app-body" id="view">
+
+        <!-- ############ PAGE START-->
+        <div class="padding">
+
+
+
+            <div class="row">
+
+                <div class="col-lg-12" >
+                    <div class="box">
+                        <ul id="eve-progress-bar">
+                            <li >
+                                <div id="eve-checkout-step-1">✔</div>
+                                <div class="eve-text-done">Sélectionner un produit</div>
+                            </li>
+
+                            <li >
+                                <div id="eve-checkout-step-1">2</div>
+                                <div class="eve-text-done">Mode de paiement</div>
+                            </li>
+
+                            {% if transactionId is defined %}
+                                <li style="    padding-left: 25%;">
+                                    <div id="eve-checkout-step-1">3</div>
+                                    <div class="eve-text-done">Reçu</div>
+                                </li>
+                            {% else %}
+                                <li style="    padding-left: 25%;">
+                                    <div id="eve-checkout-step-3">3</div>
+                                    <div class="eve-text-not-done">Reçu</div>
+                                </li>
+                            {% endif %}
+
+                        </ul>
+                        <div class="box-divider m-a-0"></div>
+
+                        {% if transactionId is defined %}
+                            <div class="box-body p-v-md" >
+                                <div class="row row-sm " >
+                                    <div class="center-block col-md-4">
+
+                                        <div class="info-box receipt">
+                                            <span>Merci</span> – votre commande sera ajoutée à votre compte dès que votre paiement aura été traité. Vous recevrez un e-mail de notification une fois que nous aurons reçu confirmation du paiement.
+                                            <br>
+                                            <br>
+                                        </div>
+
+                                        <div class="info-box receipt">
+                                            <i  class="fa fa-exclamation-triangle fa-2" style="color: darkorange; font-size: 24px; float: left; padding-right: 10px; "></i>Veuillez noter que le paiement peut prendre quelques minutes.
+                                            <br>
+                                            <br>
+                                        </div>
+
+                                        <div id="receipt" class="paid dker">
+                                            <img src="{{ asset('bundles/ctcore/assets/images/paid-stamp.png') }}" style="position: absolute;height: 68px;margin-top: 20px;left: 32px;">
+                                            <div class="inner">
+                                                <h2>Reçu</h2>
+                                                <p id="receipt-date">11 juin 2017 19:00</p>
+                                                <hr>
+
+
+
+                                                <div id="order-overview">
+
+                                                    <p>PLEX</p>
+
+
+
+                                                </div>
+
+
+                                                <hr>
+
+                                                <div id="confirmation-details-summary" class="clearfix">
+                                                    <dl>
+                                                        <dt>Mode de paiement</dt>
+                                                        <dd><span id="ctl00_ContentPlaceHolder1_ctrlPaymentProcessor_Resp_receiptInformation_lblPaymentMethod">PayPal</span></dd>
+                                                    </dl>
+                                                    <dl>
+                                                        <dt>Informations du compte</dt>
+                                                        <dd><span id="ctl00_ContentPlaceHolder1_ctrlPaymentProcessor_Resp_receiptInformation_lblFullName"></span></dd>
+                                                        <dd><span id="ctl00_ContentPlaceHolder1_ctrlPaymentProcessor_Resp_receiptInformation_lblAccountName">Kerast</span></dd>
+                                                        <dd><span id="ctl00_ContentPlaceHolder1_ctrlPaymentProcessor_Resp_receiptInformation_EmailAddressLabel">jb.collet@hotmail.fr</span></dd>
+                                                    </dl>
+                                                </div>
+
+
+
+
+
+                                                <hr>
+
+
+                                                <div class="clearfix">
+                                                    <div id="invoice-lines">
+                                                        <dl class="payment-details clearfix larger-font">
+                                                            <dt>110 PLEX</dt><dd>€4,99</dd>
+                                                        </dl>
+                                                        <hr>
+                                                        <!-- Total -->
+                                                        <dl id="payment-total" class="clearfix larger-font">
+                                                            <dt>Total</dt>
+                                                            <dd><span id="ctl00_ContentPlaceHolder1_ctrlPaymentProcessor_Resp_receiptInformation_invoicelines_lblConfirmationTotal">€4,99</span></dd>
+                                                        </dl>
+                                                    </div>
+                                                    <div class="rip"></div>
+
+                                                    <div id="ctl00_ContentPlaceHolder1_ctrlPaymentProcessor_Resp_receiptInformation_invoicelines_VatIncludedDiv" class="VatIncludedDiv">
+                                                        <a href="#securedetail" class="detail" data-toggle="modal" data-target="#m-a-b" ui-toggle-class="zoom" ui-target="#animate"  style="color: #337ab7;font-size: 13px;">
+                                                            TVA incluse
+                                                        </a>
+                                                    </div>
+                                                    <div style="position: absolute;bottom: 15px;right: 25px;font-size: 11px;font-style: italic;">
+                                                            ID : IOE785DL9Ap
+                                                    </div>
+
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="box-body p-v-md" style="margin:0px;padding:0px; padding-left: 8px;padding-right: 8px;">
+                                <div class="row row-sm " >
+                                    <div class="col-lg-4" style="padding:22px;margin:0px;border-right:1px solid rgba(120, 130, 140, 0.13); ">
+                                        <div style="margin-top: 34px;">
+
+                                            <h3 id="payment-funnel">Sélectionnez un mode de paiement</h3>
+
+                                            <div >
+                                                <a style="color:white" class="btn btn-icon btn-social grey rounded" onclick="displayPaypalBox();" title="PayPal">
+                                                    <i class="fa fa-paypal"></i>
+                                                    <i class="fa fa-paypal light-blue-900"></i>
+                                                </a>
+                                                <span style="margin-right: 18px;margin-left: 5px;">Paypal</span>
+                                                <a  style="color:white" class="btn btn-icon grey rounded"  title="Carte de crédit">
+                                                    <i class="fa fa-credit-card"></i>
+
+                                                </a>
+                                                <span >Carte de crédit (en construction) </span>
+
+
+                                            </div>
+
+                                            <h3 id="payment-funnel" style="margin-top: 40px;">Facturation</h3>
+
+
+                                            <div id="credit-card-box" class="box-body dker" style="border: 1px solid #cccccc;padding-left: 27px;padding-right: 27px;padding-bottom: 2px;display:none">
+                                                <form role="form" >
+                                                    <div class="form-group row">
+                                                        <input type="text" class="form-control" placeholder="Type de carte">
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <input type="text" class="form-control" placeholder="Nom">
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <input type="text" class="form-control" placeholder="Adresse 1">
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <input type="text" class="form-control" placeholder="Adresse 2">
+                                                    </div>
+                                                    <div class="form-group row" style="display: flex;">
+                                                        <input type="text" class="form-control" style="margin-right:5px" placeholder="Ville">
+                                                        <input type="text" class="form-control" style="margin-left:5px" placeholder="Code Postal">
+                                                    </div>
+                                                    <div class="form-group row">
+                                                        <input type="text" class="form-control" placeholder="Pays">
+                                                    </div>
+                                                </form>
+                                            </div>
+
+
+                                            <div id="paypal-box" class="box-body dker" style="border: 1px solid #cccccc;padding-left: 27px;padding-right: 27px;">
+                                                <form role="form" >
+                                                    <div class="payment-logo paypal"></div>
+
+                                                    <p>Vous allez être redirigé vers PayPal afin de terminer votre achat en toute sécurité.</p>
+                                                    <div class="text-center">
+                                                        <i class="external-link"></i>
+                                                    </div>
+
+                                                    <p></p>
+                                                    <p></p>
+                                                    <p>PayPal est un mode de paiement en ligne rapide et sécurisé. PayPal ne partage pas vos données financières avec les vendeurs, et fournit une protection contre la fraude à la pointe de l'industrie. Faites vos achats en ligne l'esprit tranquille.</p>
+
+                                                </form>
+                                            </div>
+                                            <img class="img" src="https://www.sandbox.paypal.com/fr_FR/FR/i/btn/btn_buynowCC_LG.gif" border="0" >
+
+                                            <div class="box-body " style="padding-right: 0px;">
+
+                                                <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post" target="_top">
+                                                    <input type="hidden" name="cmd" value="_s-xclick">
+                                                    <input type="hidden" name="hosted_button_id" value="{{ selectedPackage.paypalButtonId }}">
+                                                    <img alt="" border="0" src="https://www.sandbox.paypal.com/fr_FR/i/scr/pixel.gif" width="1" height="1">
+                                                    <button class="md-btn md-raised m-b-sm w-xs blue" style="float: right;">Suivant</button>
+                                                    <input type="hidden" name="custom" value="{{ app.user.id }}"/>
+                                                    <input type="hidden" name="no_shipping" value="1"/>
+                                                    <input type="hidden" name="image_url" value="http://151.80.47.12/shiftyrose/web/bundles/ctcore/assets/images/logo-complete.png"/>
+                                                </form>
+
+                                            </div>
+
+                                            <div class="security">
+                                                <div class="lock"></div>
+
+                                                <p class="server">Serveur sécurisé</p>
+                                                <a href="#securedetail" class="detail" data-toggle="modal" data-target="#m-a-a" ui-toggle-class="zoom" ui-target="#animate">En savoir plus</a>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-8 dker" style="padding:0px;margin:0px; height: 660px;">
+                                        <div class="order-summary" style="margin-top: 37px;margin-left: 15px;">
+                                            <h3 id="payment-funnel">Récapitulatif de la commande</h3>
+
+                                            <!-- Credit Card -->
+                                            <div class="order-overview">
+                                                <div id="CreditCardMethodOrder" style="display: block;">
+
+
+                                                    <div class="clearfix">
+                                                        <div id="invoice-lines">
+                                                            <dl >
+                                                                <dt style="font-weight: 500;">{{ selectedPackage.plex }} PLEX</dt ><dd style="font-weight: 500;">€{{ selectedPackage.price }}</dd>
+                                                            </dl>
+                                                            <div class="box-divider m-a-0"></div>
+                                                            <!-- Total -->
+                                                            <dl  style="margin-top: 20px;" id="payment-total">
+                                                                <dt>Total</dt>
+                                                                <dd><span>€{{ selectedPackage.price }}</span></dd>
+                                                            </dl>
+                                                        </div>
+                                                        <div class="rip"></div>
+
+                                                        <div >
+                                                            <a href="#securedetail" class="detail" data-toggle="modal" data-target="#m-a-b" ui-toggle-class="zoom" ui-target="#animate"  style="color: #337ab7;font-size: 13px;">
+                                                                TVA incluse
+                                                            </a>
+                                                        </div>
+
+                                                    </div>
+
+
+
+                                                </div>
+
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div id="m-a-a" class="modal fade animate" data-backdrop="true" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog zoom" id="animate" ui-class="zoom">
+                <div class="modal-content">
+
+                    <div id="securityDetail" class="content" style="padding: 20px;    padding-right: 120px;padding-left: 25px;">
+                        <p style="font-weight: 600;">La sécurité de vos informations est primordiale pour nous. Vos informations sont protégées en tous temps.</p>
+                        <ul>
+                            <li>Nous utilisons une technologie de cryptage de pointe</li>
+                            <li>Nous utilisons des certificats de validation prolongés</li>
+                            <li>L'environnement de paiement que nous utilisons est aligné aux normes PCI-DSS</li>
+                            <li>Nous travaillons avec des partenaires reconnus dans le monde entier, comme Entrust et Global Collect</li>
+                        </ul>
+                        <i class="fa fa-lock"></i>
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div>
+        </div>
+
+
+        <div id="m-a-b" class="modal fade animate" data-backdrop="true" aria-hidden="true" style="display: none;">
+            <div class="modal-dialog zoom" id="animate" ui-class="zoom">
+                <div class="modal-content">
+
+                    <div id="securityDetail" class="content" style="padding: 20px; ">
+
+                        <div id="small-dialog" class="zoom-anim-dialog">
+                            <b>La directive de l'Union européenne sur le commerce électronique&nbsp;</b>
+                            <a href="http://ec.europa.eu/taxation_customs/taxation/vat/how_vat_works/e-services/index_fr.htm" target="_blank" style="color: #337ab7;">2002/38/CE</a>, règlement&nbsp;792/2002, stipule que tous les résidents de l'UE doivent payer une taxe sur la valeur ajoutée&nbsp;(TVA)&nbsp;sur les services fournis par voie électronique, notamment les jeux en ligne. Par conséquent, CCP est dans l'obligation d'appliquer une TVA à toutes les transactions des clients résidant au sein de l'UE.
+                        </div>
+
+                    </div>
+
+                </div><!-- /.modal-content -->
+            </div>
+        </div>
+
+        <script>
+            function displayCreditPageBox()
+            {
+                document.getElementById("credit-card-box").style.display = "block";
+                document.getElementById("paypal-box").style.display = "none";
+            }
+
+
+            function displayPaypalBox()
+            {
+                document.getElementById("credit-card-box").style.display = "none";
+                document.getElementById("paypal-box").style.display = "block";
+
+            }
+        </script>
+
+        <!-- ############ PAGE END-->
+
+    </div>
+{% endblock %}
+
+
+{% block body_scripts %}
+
+{% endblock %}
+

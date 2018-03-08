@@ -1,0 +1,65 @@
+ct_core_homepage:
+    path:     /
+    defaults: { _controller: CTCoreBundle:Core:index }
+
+
+ct_core_topbar:
+    path:     /topbar
+    defaults: { _controller: CTCoreBundle:Core:topbar }
+
+ct_core_cart:
+    path:     /cart
+    defaults: { _controller: CTCoreBundle:Core:cart }
+
+
+
+ct_core_cart_remove_application:
+    path:     /cart/remove/{id}
+    defaults: { _controller: CTCoreBundle:Core:cartRemoveApplication }
+
+
+
+ct_core_shifts:
+    path:     /shifts
+    defaults: { _controller: CTCoreBundle:Core:shifts }
+
+
+ct_core_worker:
+    path:     /worker
+    defaults: { _controller: CTCoreBundle:Core:worker }
+
+
+ct_core_faq:
+    path:     /faq
+    defaults: { _controller: CTCoreBundle:Core:faq }
+
+ct_core_buy_tokens:
+    path:     /buy_plex
+    defaults: { _controller: CTCoreBundle:Core:buyToken }
+
+ct_core_checkout:
+    path:     /checkout/{id}
+    defaults: { _controller: CTCoreBundle:Core:checkout, id: -1 }
+
+
+
+ct_core_webservices_addtocart:
+    path:     /webservices/addtocart
+    defaults: { _controller: CTCoreBundle:Core:addToCart }
+
+
+ct_core_webservices_removefromcart:
+    path:     /webservices/removefromcart
+    defaults: { _controller: CTCoreBundle:Core:removeFromCart }
+
+
+ct_core_webservices_freebuy:
+    path:     /webservices/freebuy
+    defaults: { _controller: CTCoreBundle:Core:freeBuy }
+
+
+ct_core_webservices_paypal_ipn:
+    path:     /webservices/paypal_ipn
+    defaults: { _controller: CTCoreBundle:Core:paypalIPN }
+
+

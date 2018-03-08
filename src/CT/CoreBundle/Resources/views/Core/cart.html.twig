@@ -1,0 +1,122 @@
+{% extends "CTCoreBundle::layout.html.twig" %}
+
+
+
+{% block body_core %}
+    <div ui-view="" class="app-body" id="view">
+
+        <!-- ############ PAGE START-->
+        <div class="padding">
+            <div class="row">
+                {% if  appsInCart | length > 0%}
+                    <div class="col-sm-10">
+                        <div class="box">
+                            <div class="box-header b-b">
+                                <h3>Mon Panier</h3>
+                            </div>
+
+                            <div class="table-responsive">
+                                <table class="table table-striped b-t">
+                                    <thead>
+                                    <tr>
+                                        <th style="width:20px;">
+                                            <label class="ui-check m-a-0">
+                                                <input type="checkbox" class="has-value"><i></i>
+                                            </label>
+                                        </th>
+                                        <th>Location</th>
+                                        <th>Secteur</th>
+                                        <th>Date</th>
+                                        <th>Horaire</th>
+                                        <th>Prix</th>
+                                        <th style="width:50px;"></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+
+                                    {% for app in appsInCart %}
+                                        <tr>
+                                            <td><label class="ui-check m-a-0"><input type="checkbox" name="post[]" class="has-value"><i class="dark-white"></i></label></td>
+                                            <td>{{ app.shift.department.location.name  }}</td>
+                                            <td>{{ app.shift.department.name  }}</td>
+                                            <td>{{ app.shift.startsAt | date("d/m/y")  }}</td>
+                                            <td>{{ app.shift.startsAt | date("H:i") }} - {{ app.shift.endsAt | date("H:i") }} </td>
+                                            <td>
+                                                {% if app.shift.promotion > 0 %}
+                                                    <span  class="label rounded danger">-{{ app.shift.promotion }} %</span>
+                                                    <del >{{ app.shift.price| number_format(2, '.', ',') }}</del>
+                                                    {% set pourcent = app.shift.price - (app.shift.price * app.shift.promotion/100) %}
+                                                    {{ pourcent | number_format(2, '.', ',')}}
+                                                {% else %}
+                                                    {{ app.shift.price }}
+                                                {% endif %}
+                                                € </td>
+                                            <td>
+                                                <a href="{{ path('ct_core_cart_remove_application', {'id': app.id})  }}" ><i class="fa fa-times text-danger inline"></i></a>
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div class="col-sm-2">
+                        <div class="box">
+                            <div class="box-header b-b">
+                                <h3>Sous-total ({{ appsInCart | length }} crénaux) : </h3>
+                                <h3 style="margin-top:10px">EUR {{ totalPrice | number_format(2, '.', ',')  }} € </h3>
+                            </div>
+                            <div class="box-divider m-a-0"></div>
+
+                            <div class="box-body p-v-md">
+                                <span>Réservez avec : </span>
+                                <div style="margin-top:7px">
+                                    <a href="" class="btn btn-icon btn-social grey rounded" title="PayPal">
+                                        <i class="fa fa-paypal"></i>
+                                        <i class="fa fa-paypal light-blue-900"></i>
+                                    </a>
+
+                                    <a style="margin-left:7px" href="" class="btn btn-icon btn-social grey rounded" title="Carte de crédit">
+                                        <i class="fa fa-credit-card"></i>
+                                        <i class="fa fa-credit-card light-green-900"></i>
+                                    </a>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                    <div class="col-sm-12">
+                        <div class="box">
+                            <div class="box-header b-b">
+                                <h3>Mon Panier</h3>
+                            </div>
+                            <div class="box-divider m-a-0"></div>
+
+                            <div class="box-body p-v-md" style="text-align: center;" >
+                                <div style="display:block">Votre panier est vide !  </div>
+                                <div style="display:block;    margin-top: 4px;">Vous pouvez réserver des créneaux dès maintenant : </div>
+                                <form action="{{ path('ct_core_shifts') }}">
+                                    <button style="width: 182px;margin-top: 15px" class="md-btn md-flat m-b-sm w-xs text-primary">Reserver des créneaux</button>
+                                </form>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endif %}
+
+        </div>
+
+        <!-- ############ PAGE END-->
+
+    </div>
+{% endblock %}
+

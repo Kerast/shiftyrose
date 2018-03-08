@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>Flatkit - HTML Version | Bootstrap 4 Web App Kit with AngularJS</title>
+    <meta name="description" content="Admin, Dashboard, Bootstrap, Bootstrap 4, Angular, AngularJS" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <!-- for ios 7 style, multi-resolution icon of 152x152 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+
+
+    <meta name="apple-mobile-web-app-title" content="Flatkit">
+    <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+    <meta name="mobile-web-app-capable" content="yes">
+
+    <link href="{{ asset('bundles/ctcore/assets/images/logo.png') }}" rel="apple-touch-icon">
+
+
+
+    <!-- style -->
+    <link href="{{ asset('bundles/ctcore/assets/animate.css/animate.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/ctcore/assets/glyphicons/glyphicons.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/ctcore/assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/ctcore/assets/material-design-icons/material-design-icons.css') }}" rel="stylesheet" type="text/css">
+
+    <link href="{{ asset('bundles/ctcore/assets/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+
+    <!-- build:css ../assets/styles/app.min.css -->
+    <link href="{{ asset('bundles/ctcore/assets/styles/app.css') }}" rel="stylesheet" type="text/css">
+
+    <!-- endbuild -->
+    <link href="{{ asset('bundles/ctcore/assets/styles/font.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/ctcore/css/dot_loader.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/ctcore/css/snackbar.css') }}" rel="stylesheet" type="text/css">
+
+    <link href="{{ asset('bundles/ctcore/css/centreprise_style.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('bundles/ctcore/css/eveonline.css') }}" rel="stylesheet" type="text/css">
+
+
+    <script src="{{ asset('bundles/ctcore/libs/jquery/jquery/dist/jquery.js') }}"></script>
+
+</head>
+<body>
+
+
+<div class="app" id="app">
+
+    <!-- ############ LAYOUT START-->
+
+    <!-- sidebar -->
+    {{ include("CTCoreBundle::sidebar.html.twig") }}
+    <!-- sidebar -->
+
+
+    <!-- content -->
+    <div id="content" class="app-content box-shadow-z3" role="main">
+
+
+        {{ render(controller("CTCoreBundle:Core:topBar")) }}
+
+        <div class="app-footer">
+            <div class="p-a text-xs">
+                <div class="pull-right text-muted">
+
+                    &copy; Copyright <strong>ShiftyRose</strong> <span class="hidden-xs-down">- Designed to make your life simpler</span>
+                    <a ui-scroll-to="content"><i class="fa fa-long-arrow-up p-x-sm"></i></a>
+                </div>
+
+            </div>
+        </div>
+
+        {% block body_core %}
+
+        {% endblock %}
+    </div>
+    <!-- / -->
+
+    <!-- theme switcher -->
+    <div id="switcher">
+        <div class="switcher box-color dark-white text-color" id="sw-theme">
+
+            <div class="box-header">
+
+                <h2>Affichage</h2>
+            </div>
+            <div class="box-divider"></div>
+            <div class="box-body">
+                <p class="hidden-md-down">
+                    <label class="md-check m-y-xs"  data-target="folded">
+                        <input type="checkbox">
+                        <i class="green"></i>
+                        <span class="hidden-folded">Folded Aside</span>
+                    </label>
+                    <label class="md-check m-y-xs" data-target="boxed">
+                        <input type="checkbox">
+                        <i class="green"></i>
+                        <span class="hidden-folded">Boxed Layout</span>
+                    </label>
+                    <label class="m-y-xs pointer" ui-fullscreen>
+                        <span class="fa fa-expand fa-fw m-r-xs"></span>
+                        <span>Fullscreen Mode</span>
+                    </label>
+                </p>
+
+                <p>Themes:</p>
+                <div data-target="bg" class="text-u-c text-center _600 clearfix">
+                    <label class="p-a col-xs-6 light pointer m-a-0">
+                        <input type="radio" name="theme" value="" hidden>
+                        Light
+                    </label>
+                    <label class="p-a col-xs-6 grey pointer m-a-0">
+                        <input type="radio" name="theme" value="grey" hidden>
+                        Grey
+                    </label>
+                    <label class="p-a col-xs-6 dark pointer m-a-0">
+                        <input type="radio" name="theme" value="dark" hidden>
+                        Dark
+                    </label>
+                    <label class="p-a col-xs-6 black pointer m-a-0">
+                        <input type="radio" name="theme" value="black" hidden>
+                        Black
+                    </label>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+    <!-- / -->
+
+    <!-- ############ LAYOUT END-->
+
+</div>
+<!-- build:js scripts/app.html.js -->
+<!-- jQuery -->
+<script src="{{ asset('bundles/ctcore/libs/jquery/jquery/dist/jquery.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/js/moment.js') }}"></script>
+<!-- Bootstrap -->
+<script src="{{ asset('bundles/ctcore/libs/jquery/tether/dist/js/tether.min.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/libs/jquery/bootstrap/dist/js/bootstrap.js') }}"></script>
+<!-- core -->
+<script src="{{ asset('bundles/ctcore/libs/jquery/underscore/underscore-min.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/libs/jquery/jQuery-Storage-API/jquery.storageapi.min.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/libs/jquery/PACE/pace.min.js') }}"></script>
+
+<script src="{{ asset('bundles/ctcore/html/scripts/config.lazyload.js') }}"></script>
+
+<script src="{{ asset('bundles/ctcore/html/scripts/palette.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/html/scripts/ui-load.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/html/scripts/ui-jp.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/html/scripts/ui-include.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/html/scripts/ui-device.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/html/scripts/ui-form.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/html/scripts/ui-nav.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/html/scripts/ui-screenfull.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/html/scripts/ui-scroll-to.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/html/scripts/ui-toggle-class.js') }}"></script>
+
+<script src="{{ asset('bundles/ctcore/html/scripts/app.js') }}"></script>
+
+
+
+<!-- ajax -->
+<script src="{{ asset('bundles/ctcore/libs/jquery/jquery-pjax/jquery.pjax.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/html/scripts/ajax.js') }}"></script>
+<script src="{{ asset('bundles/ctcore/html/scripts/moment.js') }}"></script>
+
+
+
+
+{% block body_scripts %}
+
+{% endblock %}
+
+
+<!-- endbuild -->
+</body>
+</html>

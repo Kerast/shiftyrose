@@ -1,0 +1,272 @@
+#eve-progress-bar {
+    font-size: 16px;
+    padding: 20px;
+    margin:0px;
+    list-style: none;
+}
+
+
+#eve-progress-bar li {
+    display: inline-flex;
+    list-style: none;
+    width: 33%;
+    position: relative;
+    text-align: -webkit-match-parent;
+    align-items: center;
+}
+
+
+#eve-progress-bar li.first span:before {
+    content: "✔";
+    background-color: #2980b9;
+    color: #fff;
+}
+#eve-progress-bar li span:before {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 26px;
+    line-height: 40px;
+    text-align: center;
+    content: "2";
+    display: inline-block;
+    background: #efefef;
+    left: -45px;
+    top: -10px;
+}
+
+
+#eve-checkout-step-1{
+     background-color: #2980b9;
+     color: #fff;
+     width: 40px;
+     height: 40px;
+     border-radius: 20px;
+     font-size: 26px;
+     line-height: 40px;
+     text-align: center;
+     display: inline-block;
+}
+
+
+#eve-checkout-step-3{
+    background: #efefef;
+    color: #b5b5b5;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    font-size: 26px;
+    line-height: 40px;
+    text-align: center;
+    display: inline-block;
+}
+
+
+
+.eve-text-done{
+    color: #2980b9;
+    margin-left: 8px;
+}
+
+.eve-text-not-done{
+    color: #b5b5b5;
+    margin-left: 8px;
+}
+
+
+
+#payment-funnel  {
+    font-size: 18px;
+    color: #2980b9;
+    margin-bottom: 25px;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+
+.security {
+    position: absolute;
+    right: 10px;
+    top: 15px;
+    height: 40px;
+    text-align: right;
+    font-size: 13px;
+
+}
+
+.security .lock {
+    float: right;
+    height: 40px;
+    width: 34px;
+    position: relative;
+
+}
+
+
+.security .server {
+    padding-right: 35px;
+    margin-bottom: 0;
+    font-weight: 700;
+    line-height: 16px;
+}
+
+
+.security .detail {
+    color: #337ab7;
+
+}
+
+
+.security .lock:after {
+    content: "\f023";
+    font-size: 30px;
+    font-family: FontAwesome;
+    position: absolute;
+    top: -1px;
+    left: 10px;
+}
+
+
+#payment-methods-new {
+    list-style: none;
+    margin: 0 0 10px;
+}
+
+
+#payment-methods-new li.selected {
+    background-position: -45px -877px;
+    background-color: #f5f5f5;
+    border: 1px solid #ececec;
+}
+#payment-methods-new li {
+    list-style: none;
+    float: left;
+    cursor: pointer;
+    background: transparent url(https://web.ccpgamescdn.com/secure/images/payment_methods_new.png) no-repeat -45px -937px;
+    margin-right: 20px;
+    position: relative;
+    border: 1px solid transparent;
+    margin-bottom: 10px;
+}
+
+
+.order-summary {
+    padding: 20px 25px 25px;
+}
+
+
+#invoice-lines dt {
+    text-align: left;
+    float: left;
+}
+
+#invoice-lines dd {
+    text-align: right;
+}
+
+
+#payment-total dt {
+    font-size: 18px;
+}
+
+#payment-total dd {
+    font-size: 24px;
+    color: #3c763d;
+}
+
+
+.payment-logo.paypal {
+    background-position: -21px -94px;
+}
+
+.payment-logo {
+    background: transparent url(https://web.ccpgamescdn.com/secure/images/payment_methods_new.png) no-repeat;
+    height: 40px;
+    width: 100%;
+    float: left;
+    margin-bottom: 10px;
+}
+
+
+.external-link {
+    display: inline-block;
+    height: 80px;
+    width: 125px;
+    background: url(https://web.ccpgamescdn.com/secure/images/v2/outbound_link_icon.png) no-repeat 0 0;
+    margin-bottom: 10px;
+}
+
+
+
+#securityDetail .fa {
+    position: absolute;
+    top: 48px;
+    right: 35px;
+    font-size: 100px;
+}
+
+
+.img {
+    position: absolute;
+    clip: rect(31px,195px,48px,0px);
+}
+
+
+.center-block.col-md-4 {
+    margin: 0;
+    margin-left: 33%;
+}
+
+#receipt.paid {
+}
+
+
+#receipt.paid:after, #receipt.paid:before {
+    content: "";
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: #fff url(https://web.ccpgamescdn.com/secure/images/v2/receipt-rip2.png) 0 0 repeat-x;
+}
+
+#receipt.paid:after {
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}
+
+
+#receipt .inner {
+    padding: 30px;
+}
+
+#receipt h2 {
+    font-size: 30px;
+    text-transform: none;
+    text-align: center;
+    margin: 0 0 .41667em;
+    margin-bottom: 3px;
+}
+
+
+#receipt #receipt-date {
+    text-align: center;
+    color: #aaa;
+    font-size: 16px;
+    clear: both;
+}
+
+#receipt .inner {
+    padding: 30px;
+}
+
+#receipt.paid:after, #payment-funnel #receipt.paid:before {
+    content: "";
+    display: block;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10px;
+    background: #fff url(https://web.ccpgamescdn.com/secure/images/v2/receipt-rip2.png) 0 0 repeat-x;
+}

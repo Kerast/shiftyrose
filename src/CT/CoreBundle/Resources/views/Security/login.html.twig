@@ -1,0 +1,125 @@
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block fos_user_content %}
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Flatkit - HTML Version | Bootstrap 4 Web App Kit with AngularJS</title>
+        <meta name="description" content="Admin, Dashboard, Bootstrap, Bootstrap 4, Angular, AngularJS" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimal-ui" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+        <!-- for ios 7 style, multi-resolution icon of 152x152 -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-barstyle" content="black-translucent">
+        <link rel="apple-touch-icon" href="../assets/images/logo.png">
+        <meta name="apple-mobile-web-app-title" content="Flatkit">
+        <!-- for Chrome on Android, multi-resolution icon of 196x196 -->
+        <meta name="mobile-web-app-capable" content="yes">
+        <link rel="shortcut icon" sizes="196x196" href="../assets/images/logo.png">
+
+        <!-- style --> <link href="{{ asset('bundles/ctcore/assets/images/logo.png') }}" rel="apple-touch-icon">
+
+
+
+        <!-- style -->
+        <link href="{{ asset('bundles/ctcore/assets/animate.css/animate.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/ctcore/assets/glyphicons/glyphicons.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/ctcore/assets/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/ctcore/assets/material-design-icons/material-design-icons.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('bundles/ctcore/css/centreprise_style.css') }}" rel="stylesheet" type="text/css">
+
+        <link href="{{ asset('bundles/ctcore/assets/bootstrap/dist/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+
+        <!-- build:css ../assets/styles/app.min.css -->
+        <link href="{{ asset('bundles/ctcore/assets/styles/app.css') }}" rel="stylesheet" type="text/css">
+
+        <!-- endbuild -->
+        <link href="{{ asset('bundles/ctcore/assets/styles/font.css') }}" rel="stylesheet" type="text/css">
+    </head>
+    <body class="tinted-image">
+    <div class="app" id="app">
+
+        <!-- ############ LAYOUT START-->
+        <div class="center-block w-xxl w-auto-xs p-y-md">
+            <div class="navbar">
+                <div class="pull-center">
+                    <div ui-include="'../views/blocks/navbar.brand.html'"></div>
+                </div>
+            </div>
+            <div class="p-a-md box-color r box-shadow-z1 text-color m-a">
+                <div class="m-b text-sm">
+                    Sign in with your Account
+                </div>
+                <form action="{{ path("fos_user_security_check") }}" method="post">
+
+                    {% if csrf_token %}
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                    {% endif %}
+
+                    <div class="md-form-group float-label">
+                        <input type="username" name="_username" value="{{ last_username }}" required="required" class="md-input" ng-model="user.email" >
+                        <label>Email</label>
+                    </div>
+                    <div class="md-form-group float-label">
+                        <input  type="password" id="password" name="_password" class="md-input" ng-model="user.password" required>
+                        <label>Password</label>
+                    </div>
+                    <div class="m-b-md">
+                        <label class="md-check">
+                            <input type="checkbox" id="remember_me" name="_remember_me" value="on" ><i class="primary"></i> Keep me signed in
+                        </label>
+                    </div>
+                    <button type="submit" id="_submit" name="_submit" class="btn primary btn-block p-x-md">Sign in</button>
+                </form>
+            </div>
+
+            <div class="p-v-lg text-center">
+                <div class="m-b"><a ui-sref="access.forgot-password" href="forgot-password.html" class="text-primary _600">Forgot password?</a></div>
+                <div>Do not have an account? <a ui-sref="access.signup" href="signup.html" class="text-primary _600">Sign up</a></div>
+            </div>
+        </div>
+
+        <!-- ############ LAYOUT END-->
+
+    </div>
+    <!-- build:js scripts/app.html.js -->
+    <!-- jQuery -->
+    <script src="{{ asset('bundles/ctcore/libs/jquery/jquery/dist/jquery.js') }}"></script>
+    <!-- Bootstrap -->
+    <script src="{{ asset('bundles/ctcore/libs/jquery/tether/dist/js/tether.min.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/libs/jquery/bootstrap/dist/js/bootstrap.js') }}"></script>
+    <!-- core -->
+    <script src="{{ asset('bundles/ctcore/libs/jquery/underscore/underscore-min.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/libs/jquery/jQuery-Storage-API/jquery.storageapi.min.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/libs/jquery/PACE/pace.min.js') }}"></script>
+
+    <script src="{{ asset('bundles/ctcore/html/scripts/config.lazyload.js') }}"></script>
+
+    <script src="{{ asset('bundles/ctcore/html/scripts/palette.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/html/scripts/ui-load.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/html/scripts/ui-jp.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/html/scripts/ui-include.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/html/scripts/ui-device.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/html/scripts/ui-form.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/html/scripts/ui-nav.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/html/scripts/ui-screenfull.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/html/scripts/ui-scroll-to.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/html/scripts/ui-toggle-class.js') }}"></script>
+
+    <script src="{{ asset('bundles/ctcore/html/scripts/app.js') }}"></script>
+
+
+
+    <!-- ajax -->
+    <script src="{{ asset('bundles/ctcore/libs/jquery/jquery-pjax/jquery.pjax.js') }}"></script>
+    <script src="{{ asset('bundles/ctcore/html/scripts/ajax.js') }}"></script>
+    <!-- endbuild -->
+    <!-- endbuild -->
+    </body>
+    </html>
+
+
+{% endblock fos_user_content %}

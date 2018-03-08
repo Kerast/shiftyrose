@@ -1,0 +1,8 @@
+services:
+
+    ct_core.shift_manager:
+        class: CT\CoreBundle\Services\ShiftManager
+        arguments:
+            - "@doctrine.orm.entity_manager"
+            - "@security.token_storage"
+            - "@router"
